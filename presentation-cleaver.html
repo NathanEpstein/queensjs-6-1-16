@@ -1,0 +1,799 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Ranking Programming Languages</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  background-color: #f7f7f7;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+}
+
+.hljs-comment,
+.hljs-quote {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-literal,
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag .hljs-attr {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-doctag {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-regexp,
+.hljs-link {
+  color: #009926;
+}
+
+.hljs-symbol,
+.hljs-bullet {
+  color: #990073;
+}
+
+.hljs-built_in,
+.hljs-builtin-name {
+  color: #0086b3;
+}
+
+.hljs-meta {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+
+.hljs-strong {
+  font-weight: bold;
+}
+
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="predicting-the-growth-of-programming-languages">Predicting the Growth of Programming Languages</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h3 id="motivation">Motivation</h3>
+<ul>
+<li>Build a model to benchmark programming languages (and frameworks)</li>
+<li>We want something to signal current standings and tell us something about the future</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><p><img src="./img/redmonk.png"></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="redmonk-language-rankings">Redmonk Language Rankings</h3>
+<ul>
+<li>The Redmonk Language Rankings have been around since 2010 (regressing Github repo count against Stack Overflow posts).</li>
+<li>The fact that the repo count and post count are correlated is a source of comfort but doesn’t provide forward guidance.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-5">
+    <section class="slide-content"><h3 id="the-new-model">The (New) Model</h3>
+<ul>
+<li>Stack overflow survey contains data on what languages people<ul>
+<li>want to use and</li>
+<li>what languages they do use</li>
+</ul>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="the-new-model">The (New) Model</h3>
+<ul>
+<li>Using the SO data, we can build a regression to predict equilibrium usage per desired user base.</li>
+<li>Intuitively, if the number of people wishing to use a technology is much smaller/larger than the actual user base, the user base should shrink/grow.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="exploring-the-model">Exploring the Model</h3>
+<ul>
+<li>Now we can look at some charts to explore the model and it&#39;s results.</li>
+<li>All charts here made with D3xter (more info @ d3xter.io)</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="the-data">The Data</h3>
+<pre><code class="lang-javascript"><span class="hljs-keyword">var</span> languages = [
+  {
+    name: <span class="hljs-string">'Sharepoint'</span>,
+    users: <span class="hljs-number">299</span>,
+    seekers: <span class="hljs-number">378</span>,
+    predicted: <span class="hljs-number">-149.1512547600487</span>
+  },
+  ...,
+  {
+    name: <span class="hljs-string">'JavaScript'</span>,
+    users: <span class="hljs-number">10769</span>,
+    seekers: <span class="hljs-number">7529</span>,
+    predicted: <span class="hljs-number">8802.345827352598</span>
+  }
+];</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h1 id="visualizing-the-model">Visualizing the Model</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><pre><code class="lang-javascript"><span class="hljs-keyword">new</span> D3xter({
+  xLab: <span class="hljs-string">"Would-be Users"</span>,
+  yLab: <span class="hljs-string">"Current Users"</span>,
+  height: <span class="hljs-number">600</span>,
+  width: <span class="hljs-number">900</span>
+}).plot({
+  datasets: [
+    {
+      x: languages.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.seekers }),
+      y: languages.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.users }),
+      labels: languages.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.name }),
+      color: <span class="hljs-string">'black'</span>
+    },
+    {
+      x: [languages[<span class="hljs-number">0</span>].seekers, languages.slice().pop().seekers],
+      y: [languages[<span class="hljs-number">0</span>].predicted, languages.slice().pop().predicted],
+      color: <span class="hljs-string">'black'</span>,
+      line: <span class="hljs-literal">true</span>
+    }
+  ]
+});</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><p><img src="./img/regression.png"></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h1 id="biggest-languages">Biggest Languages</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> bigLangs = languages.sort(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+  <span class="hljs-keyword">return</span> a.users - b.users;
+}).slice(languages.length - <span class="hljs-number">10</span>);
+
+<span class="hljs-keyword">var</span> myBar = <span class="hljs-keyword">new</span> D3xter({
+  title: <span class="hljs-string">"Biggest Languages"</span>,
+  width: <span class="hljs-number">800</span>
+}).bar({
+  labels: [<span class="hljs-string">"Current"</span>, <span class="hljs-string">"Seeking"</span>],
+  groups: bigLangs.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.name }),
+  datasets: [
+    {
+      values: bigLangs.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.users }),
+    },
+    {
+      values: bigLangs.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.seekers }),
+    }
+  ]
+});</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><p><img src="./img/rankings.png"></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h1 id="rankings-plus">Rankings Plus</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> bigLangs = languages.slice(languages.length - <span class="hljs-number">10</span>);
+<span class="hljs-keyword">var</span> myBar = <span class="hljs-keyword">new</span> D3xter({
+  title: <span class="hljs-string">"Biggest Languages: Rankings Plus"</span>,
+  width: <span class="hljs-number">800</span>
+}).bar({
+  labels: [<span class="hljs-string">"Current"</span>, <span class="hljs-string">"Seeking"</span>],
+  groups: bigLangs.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.name }),
+  datasets: [
+    {
+      values: bigLangs.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.users }),
+    },
+    {
+      values: bigLangs.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.seekers }),
+    }
+  ]
+});</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><p><img src="./img/rankings_plus.png"></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h1 id="fastest-growing-languages">Fastest Growing Languages</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><pre><code class="lang-javascript"><span class="hljs-keyword">var</span> growLangs = languages.sort(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">a, b</span>) </span>{
+  <span class="hljs-keyword">return</span> (a.predicted / a.users) - (b.predicted / b.users);
+}).slice(languages.length - <span class="hljs-number">10</span>);
+
+<span class="hljs-keyword">var</span> myBar = <span class="hljs-keyword">new</span> D3xter({
+  title: <span class="hljs-string">"Fastest Growing Languages"</span>,
+  width: <span class="hljs-number">800</span>
+}).bar({
+  labels: [<span class="hljs-string">"Current"</span>, <span class="hljs-string">"Seeking"</span>],
+  groups: growLangs.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.name }),
+  datasets: [
+    {
+      values: growLangs.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.users }),
+    },
+    {
+      values: growLangs.map(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">lang</span>) </span>{ <span class="hljs-keyword">return</span> lang.seekers }),
+    }
+  ]
+});</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><p><img src="./img/growth.png"></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h1 id="interpreting-our-model">Interpreting our Model</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h3 id="what-does-this-mean-for-js-">What does this mean for JS?</h3>
+<ul>
+<li>Vanilla JS is shrinking but still huge.</li>
+<li>Node.js and AngularJS are big and rapidly getting bigger.</li>
+<li>One interpretation is that the JS community is getting more organized.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h3 id="prediction-growth-languages">Prediction: &quot;Growth&quot; Languages</h3>
+<p>All of the following are predicted to see growth: Haskell, Hadoop, Swift, Rust, Scala, iOS, Go, C++11, Node.JS, AngularJS</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-24">
+    <section class="slide-content"><h3 id="results-growth-languages">Results: &quot;Growth&quot; Languages</h3>
+<ul>
+<li><p>Hadoop, Swift, iOS, Go, Node.js, and AngularJS were all listed as &quot;trending&quot; upwards in this year&#39;s SO developer survery (correct).</p>
+</li>
+<li><p>C++11 was not listed as either &quot;trending&quot; up or down (ambiguous).</p>
+</li>
+<li><p>Haskell, Rust, and Scala were listed as &quot;trending&quot; down (incorrect).</p>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-25">
+    <section class="slide-content"><h3 id="results-growth-languages-continued-">Results: &quot;Growth&quot; Languages (continued)</h3>
+<ul>
+<li><p>Notably, the model seems to have problems with predicting growth for &quot;small&quot; languages. Haskell, Rust, and Scala were the smallest 3 &quot;growth&quot; languages.</p>
+</li>
+<li><p>The intuitive interpretation is that small languages don&#39;t have the existing community to capitalize on the hype that feeds large expected growth.</p>
+</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-26">
+    <section class="slide-content"><h3 id="prediction-big-languages">Prediction: &quot;Big&quot; Languages</h3>
+<ul>
+<li>Ambigious / Mild Losses: JS, Java, C#, C++, C</li>
+<li>Winners: Python, Android, AngularJS, Node.js, iOS</li>
+<li>Losers: SQL, PHP</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-27">
+    <section class="slide-content"><h3 id="results-big-languages">Results: &quot;Big&quot; Languages</h3>
+<ul>
+<li>Above predictions are accurate.</li>
+<li>Mild losses for Java, C#, C++, and C; JS &quot;trending&quot; slightly updwards.</li>
+<li>Python, Android, AngularJS, Node.js, and iOS all &quot;trending&quot; upwards</li>
+<li>SQL and PHP &quot;trending&quot; downwards.</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-28">
+    <section class="slide-content"><h3 id="conclusions">Conclusions</h3>
+<ul>
+<li>We&#39;ll need to wait for published SO survey data to update predictions / rankings.</li>
+<li>Simple model looks to be a good way to benchmark programming languages.</li>
+<li>JS is staying big. Frameworks are growing. Long live JS!</li>
+</ul>
+</section>
+  </div>
+  <div class="slide hidden author-slide" id="slide-29">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">Nathan Epstein</h1>
+    <h3 class="twitter">
+      <a href="http://twitter.com/@epstein_n">@epstein_n</a>
+    </h3>
+    <h3 class="url">
+      <a href="http://nepste.in">http://nepste.in</a>
+    </h3>
+    <h3 class="email">
+      <a href="mailto:_@nepste.in">_@nepste.in</a>
+    </h3>
+</div>
+</section>
+  </div>
+
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  try {
+    window.history.replaceState({} , null, '#' + currentPosition());
+  } catch (e) {
+    window.location.hash = currentPosition();
+  }
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>

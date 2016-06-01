@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <script src="data.js"></script>
+    <script src="bower_components/d3/d3.min.js"></script>
+    <link rel="stylesheet" href="bower_components/d3xter/css/style.css">
+    <script src="bower_components/d3xter/js/lib.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      new D3xter({
+        xLab: "Would-be Users",
+        yLab: "Current Users",
+        height: 600,
+        width: 900
+      }).plot({
+        datasets: [
+          {
+            x: languages.map(function(lang) { return lang.seekers }),
+            y: languages.map(function(lang) { return lang.users }),
+            labels: languages.map(function(lang) { return lang.name }),
+            color: 'black'
+          },
+          {
+            x: [languages[0].seekers, languages.slice().pop().seekers],
+            y: [languages[0].predicted, languages.slice().pop().predicted],
+            color: 'black',
+            line: true
+          }
+        ]
+      });
+
+    </script>
+  </body>
+</html>

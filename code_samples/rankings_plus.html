@@ -1,0 +1,28 @@
+<html>
+  <head>
+    <script src="data.js"></script>
+    <script src="bower_components/d3/d3.min.js"></script>
+    <link rel="stylesheet" href="bower_components/d3xter/css/style.css">
+    <script src="bower_components/d3xter/js/lib.js" charset="utf-8"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+      var bigLangs = languages.slice(languages.length - 10);
+      var myBar = new D3xter({
+        title: "Biggest Languages: Rankings Plus",
+        width: 800
+      }).bar({
+        labels: ["Current", "Seeking"],
+        groups: bigLangs.map(function(lang) { return lang.name }),
+        datasets: [
+          {
+            values: bigLangs.map(function(lang) { return lang.users }),
+          },
+          {
+            values: bigLangs.map(function(lang) { return lang.seekers }),
+          }
+        ]
+      });
+    </script>
+  </body>
+</html>
