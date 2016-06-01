@@ -211,9 +211,7 @@ All of the following are predicted to see growth: Haskell, Hadoop, Swift, Rust, 
 ### Results: "Growth" Languages
 
 - Hadoop, Swift, iOS, Go, Node.js, and AngularJS were all listed as "trending" upwards in this year's SO developer survery (correct).
-
 - C++11 was not listed as either "trending" up or down (ambiguous).
-
 - Haskell, Rust, and Scala were listed as "trending" down (incorrect).
 
 --
@@ -221,7 +219,6 @@ All of the following are predicted to see growth: Haskell, Hadoop, Swift, Rust, 
 ### Results: "Growth" Languages (continued)
 
 - Notably, the model seems to have problems with predicting growth for "small" languages. Haskell, Rust, and Scala were the smallest 3 "growth" languages.
-
 - The intuitive interpretation is that small languages don't have the existing community to capitalize on the hype that feeds large expected growth.
 --
 
